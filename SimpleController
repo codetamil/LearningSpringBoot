@@ -1,0 +1,44 @@
+https://www.blazemeter.com/blog/spring-boot-rest-api-unit-testing-with-junit----This tutorial contains code for testing SpringBoot Application 
+They have used JUnit test framework.
+
+
+
+Example Controller in SpringBoot
+@Controller
+public class LoginController {
+
+    @Autowired
+
+    LoginService service;
+
+    @RequestMapping(value="/login", method = RequestMethod.GET)
+
+    public String showLoginPage(ModelMap model){
+
+        return "login";
+
+    }
+
+    @RequestMapping(value="/login", method = RequestMethod.POST)
+
+    public String showWelcomePage(ModelMap model, @RequestParam String name, @RequestParam String password){
+
+        boolean isValidUser = service.validateUser(name, password);
+
+        if (!isValidUser) {
+
+            model.put("errorMessage", "Invalid Credentials");
+
+            return "login";
+
+        }
+
+        model.put("name", name);
+
+        model.put("password", password);
+
+        return "welcome";
+
+    }
+
+}
